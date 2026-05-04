@@ -1,0 +1,22 @@
+services:
+  edge-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: edge-openrouter-agent:latest
+    environment:
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENROUTER_BASE_URL: ${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1}
+      OPENROUTER_APP_NAME: edge-openrouter-agent
+      OPENROUTER_SITE_URL: ${OPENROUTER_SITE_URL:-http://localhost}
+    command: ["run", "--config", "configs/example_config.json"]
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - ./configs:/app/configs:ro
+      - ./artifacts:/app/artifacts
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL

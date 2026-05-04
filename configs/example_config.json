@@ -1,0 +1,54 @@
+{
+  "backend": "openrouter",
+  "simulation_mode": true,
+  "build_local_artifacts": false,
+  "artifact_dir": "artifacts",
+  "calibration_data_dir": null,
+  "default_task": "general",
+  "constraints": {
+    "max_p95_latency_ms": 180,
+    "max_peak_memory_mb": 2400,
+    "min_quality_score": 0.86,
+    "max_energy_mj": 100
+  },
+  "weights": {
+    "quality": 1.0,
+    "latency": 0.02,
+    "memory": 0.003,
+    "energy": 0.001
+  },
+  "candidates": [
+    {
+      "name": "baseline-fp32",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "precision": "fp32",
+      "quantization": "none",
+      "runtime": "openrouter-api"
+    },
+    {
+      "name": "balanced-fp16",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "precision": "fp16",
+      "quantization": "float16",
+      "runtime": "openrouter-api"
+    },
+    {
+      "name": "speed-int8-dynamic",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "precision": "int8",
+      "quantization": "dynamic",
+      "runtime": "openrouter-api"
+    },
+    {
+      "name": "speed-int8-static",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "precision": "int8",
+      "quantization": "static",
+      "runtime": "openrouter-api"
+    }
+  ]
+}

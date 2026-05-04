@@ -1,0 +1,70 @@
+{
+  "backend": "hybrid",
+  "simulation_mode": true,
+  "build_local_artifacts": true,
+  "artifact_dir": "artifacts",
+  "calibration_data_dir": "calibration",
+  "default_task": "general",
+  "constraints": {
+    "max_p95_latency_ms": 180,
+    "max_peak_memory_mb": 2400,
+    "min_quality_score": 0.84,
+    "max_energy_mj": 120
+  },
+  "weights": {
+    "quality": 1.0,
+    "latency": 0.02,
+    "memory": 0.003,
+    "energy": 0.001
+  },
+  "candidates": [
+    {
+      "name": "local-onnx-fp32",
+      "provider": "local",
+      "model": "local/onnx-base",
+      "precision": "fp32",
+      "quantization": "none",
+      "runtime": "onnxruntime-local",
+      "source_model_path": "models/model.onnx"
+    },
+    {
+      "name": "local-onnx-fp16",
+      "provider": "local",
+      "model": "local/onnx-base",
+      "precision": "fp16",
+      "quantization": "float16",
+      "runtime": "onnxruntime-local",
+      "source_model_path": "models/model.onnx"
+    },
+    {
+      "name": "local-onnx-int8-dynamic",
+      "provider": "local",
+      "model": "local/onnx-base",
+      "precision": "int8",
+      "quantization": "dynamic",
+      "runtime": "onnxruntime-local",
+      "source_model_path": "models/model.onnx"
+    },
+    {
+      "name": "local-onnx-int8-static",
+      "provider": "local",
+      "model": "local/onnx-base",
+      "precision": "int8",
+      "quantization": "static",
+      "runtime": "onnxruntime-local",
+      "source_model_path": "models/model.onnx",
+      "config": {
+        "calibration_file": "calibration/samples.npy"
+      }
+    },
+    {
+      "name": "local-tflite-fp16",
+      "provider": "local",
+      "model": "local/tflite-base",
+      "precision": "fp16",
+      "quantization": "float16",
+      "runtime": "tflite-local",
+      "source_model_path": "models/saved_model"
+    }
+  ]
+}
